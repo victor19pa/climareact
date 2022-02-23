@@ -6,14 +6,16 @@ const Formulario = ({busqueda, setBusqueda, setConsultar}) => {
     //useState de Animated
     const [ animacionBoton ] = useState(new Animated.Value(1)) 
     //destructurar busqueda
-    const {pais, ciudad } = busqueda
+    const { pais, ciudad } = busqueda
 
+    //Validacion campos
     const consultarClima = () => {
         if(pais.trim() === '' || ciudad.trim() === ''){
             mostrarAlerta()
         }
         setConsultar(true)
     }
+    //Alerta validacion
     const mostrarAlerta = () => {
         Alert.alert(
             'Error',
@@ -21,6 +23,7 @@ const Formulario = ({busqueda, setBusqueda, setConsultar}) => {
             [{text: 'Entendido'}]
         )
     }
+    //animacion
     const animacionEntradada = () =>{
         Animated.spring(animacionBoton,{
             toValue: .8,
@@ -41,6 +44,7 @@ const Formulario = ({busqueda, setBusqueda, setConsultar}) => {
     return (
         <>
             <View > 
+                {/* Input Ciudad */}
                 <View>
                     <TextInput
                         value={ ciudad }
@@ -50,6 +54,7 @@ const Formulario = ({busqueda, setBusqueda, setConsultar}) => {
                         placeholderTextColor='#666'
                     />
                 </View>
+                {/* Picker Pais */}
                 <View>
                     <Picker
                         selectedValue={ pais }
@@ -66,7 +71,7 @@ const Formulario = ({busqueda, setBusqueda, setConsultar}) => {
                         <Picker.Item label="Peru" value="PE"/>
                     </Picker>
                 </View>
-
+                {/* Boton de busqueda */}
                 <TouchableWithoutFeedback
                     onPressIn={ () => animacionEntradada()}
                     onPressOut={ () => animacionSalida()}

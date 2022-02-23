@@ -25,9 +25,11 @@ const App = () => {
   //destructurar busqueda
   const { ciudad, pais } = busqueda
 
+  //manejo de api
   useEffect(() => {
     const consultarClima = async () => {
       if(consultar){
+        //dadas por la api utilizada
         const appId = '75e7186b05fb37c3f585aeaa7e47e804'
         const url = `http://api.openweathermap.org/data/2.5/weather?q=${ciudad},${pais}&appid=${appId}`
   
@@ -39,9 +41,12 @@ const App = () => {
 
           //modificar colores de  fondo en base a temperatura
           const kelvin = 273.15
+          //destructurar resultado json
           const { main } = resultado;
+          //formula a celsius
           const actual = main.temp - kelvin
 
+          //depende temperatura sera fondo de app
           if(actual<10){
             setBgcolor('rgb(105, 108, 149)')
           }else if(actual >= 10 && actual < 25){
@@ -57,7 +62,7 @@ const App = () => {
     }
     consultarClima()
   }, [consultar])
-
+  //alerta no hay coincidencias
   const mostrarAlerta = () => {
     Alert.alert(
       'Error',
@@ -65,6 +70,7 @@ const App = () => {
       [{text: 'Ok'}]
     )
   }
+  //ocultar teclado
   const ocultarTeclado = () => {
     Keyboard.dismiss()
   }
@@ -77,9 +83,11 @@ const App = () => {
       <TouchableWithoutFeedback onPress={ () => ocultarTeclado()}>
         <View style={[styles.app, bgColorApp]}>
           <View style={styles.contenido}>
+            {/* Componente Clima */}
             <Clima 
               resultado={resultado}
             />
+            {/* Componente Formulario */}
             <Formulario 
               busqueda={busqueda}
               setBusqueda={setBusqueda}
